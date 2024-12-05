@@ -1,0 +1,32 @@
+{
+  "name": "use-tracking",
+  "version": "0.0.11",
+  "description": "<add description>",
+  "license": "MIT",
+  "repository": "nrjdalal/use-tracking",
+  "funding": "https://github.com/sponsors/nrjdalal",
+  "author": {
+    "name": "Neeraj Dalal",
+    "email": "admin@nrjdalal.com",
+    "url": "https://nrjdalal.com"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "typescript": "^5.6.3"
+  },
+  "changelog": {
+    "url": "https://github.com/nrjdalal/use-tracking/releases"
+  },
+  "keywords": []
+}

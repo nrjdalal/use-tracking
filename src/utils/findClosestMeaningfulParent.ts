@@ -6,6 +6,7 @@
  * @param meaningfulTags - An array of meaningful tag names to check for (e.g., ['button', 'a', 'div']).
  * @returns The closest meaningful parent element or the original target.
  */
+
 export function findClosestMeaningfulParent(
   target: HTMLElement,
   meaningfulTags: string[] = ['button', 'a', 'div']

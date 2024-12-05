@@ -1,29 +1,48 @@
 {
   "name": "use-tracking",
-  "version": "0.0.15",
-  "description": "<add description>",
+  "description": "`use-tracking` is a custom React hook designed to enable simple and effective event tracking within your applications. It is especially useful for tracking user interactions like page views and click events, providing an easy way to collect analytics data.",
+  "version": "0.0.17-beta",
   "license": "MIT",
-  "repository": "nrjdalal/use-tracking",
-  "funding": "https://github.com/sponsors/nrjdalal",
   "author": {
     "name": "Neeraj Dalal",
     "email": "admin@nrjdalal.com",
     "url": "https://nrjdalal.com"
   },
-  "engines": {
-    "node": ">=16"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nrjdalal/use-tracking.git"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "keywords": [
+    "React",
+    "Hook",
+    "Tracking",
+    "Analytics",
+    "Events",
+    "Monitoring",
+    "Client-side",
+    "User Interactions",
+    "Session Handling",
+    "Click Events",
+    "Pageview Tracking"
+  ],
+  "type": "module",
+  "exports": "./dist/index.js",
   "scripts": {
-    "prepublish": "tsc"
+    "build": "tsup"
   },
   "peerDependencies": {
+    "next": ">=13.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
-  "keywords": []
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@types/node": "^22.10.1"
+  }
 }

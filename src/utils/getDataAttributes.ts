@@ -1,41 +1,17 @@
 interface GetDataAttributesOptions {
-  prefix?: string
-  includeAll?: 'auto' | 'true' | 'false'
   ignore?: string[]
+  prefix?: string
 }
 
 export function getDataAttributes(
   target: HTMLElement,
-  { prefix, includeAll = 'auto', ignore = [] }: GetDataAttributesOptions = {}
+  { ignore = [], prefix }: GetDataAttributesOptions = {}
 ): Record<string, string> {
-  if (includeAll === 'true' && ignore.length > 0) {
-    throw new Error(
-      'Cannot use includeAll="true" with a user-defined ignore array'
-    )
-  }
+  if (!target) return {}
 
-  if (prefix && includeAll !== 'auto') {
-    throw new Error('Cannot use both prefix and includeAll together')
-  }
-
-  if (includeAll === 'auto') {
-    ignore = ['class']
-  }
-
-  if (includeAll === 'true') {
-    ignore = []
-  }
-
-  return Array.from(target.attributes)
-    .filter((attr) => {
-      if (includeAll === 'true') return true
-      if (ignore.includes(attr.name)) return false
-      if (prefix) return attr.name.startsWith(prefix)
-      return !ignore.includes(attr.name)
-    })
-    .reduce((acc, attr) => {
-      const key = prefix ? attr.name.slice(prefix.length) : attr.name
-      acc[key] = attr.value
-      return acc
-    }, {} as Record<string, string>)
+  return Array.from(target.attributes).reduce((acc, attr) => {
+    if (ignore.some((i) => attr.name.startsWith(i))) return acc
+    if (prefix && !attr.name.startsWith(prefix)) return acc
+    return { ...acc, [attr.name]: attr.value }
+  }, {} as Record<string, string>)
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import { useTracking, type UseTrackingOptions } from '@/src/hooks/use-tracking'
 
 interface TrackerProps extends UseTrackingOptions {}

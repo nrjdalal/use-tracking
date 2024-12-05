@@ -12,13 +12,13 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Usage with Tracker Component](#usage-with-tracker-component)
-  - [Add Tracker in Your Layout Component](#just-add-tracker-in-your-layout-component)
-  - [Make Sure to Set Up an API Route](#make-sure-to-set-up-an-api-route)
-- [Advanced Usage](#advanced-usage)
-  - [Step 1: Create a Next.js Client Component](#step-1-create-a-nextjs-client-component)
-  - [Step 2: Create an API Handler](#step-2-create-an-api-handler)
-  - [Step 3: Add the Tracker to Your Layout Component](#step-3-add-the-tracker-to-your-layout-component)
+- [Recommended: Usage with Tracker Component](#recommended-usage-with-tracker-component)
+  - [Step 1: Create a Next.js Provider Component](#step-1-create-a-nextjs-provider-component)
+  - [Step 2: Add the TrackingProvider to Your Layout Component](#step-2-add-the-trackingprovider-to-your-layout-component)
+  - [Step 3: Make Sure to Set Up an API Route](#step-3-make-sure-to-set-up-an-api-route)
+- [Usage for Specific Pages](#usage-for-specific-pages)
+  - [Step 1: Create a Next.js Client Hook](#step-1-create-a-nextjs-client-hook)
+  - [Step 2: Make Sure to Set Up an API Route](#step-2-make-sure-to-set-up-an-api-route-1)
 - [Configuration Options](#configuration-options)
 - [Contributions](#contributions)
 - [License](#license)
@@ -90,20 +90,42 @@ Event: {
 }
 ```
 
-## Usage with Tracker Component
+## Recommended: Usage with Tracker Component
 
-> Currently experimental, if doesn't work as expected, please use the advanced usage.
+It is recommended to use the `TrackerProvider` in a layout component that is rendered on every page. This enables you to track page views and click events across your entire application.
 
-```bash
-bun add use-tracking@experimental
-```
+### Step 1: Create a Next.js Provider Component
 
-### Add Tracker in Your Layout Component
+> Path: `src/components/tracking-provider.tsx`
 
 ```tsx
+'use client'
+
 import { Tracker } from 'use-tracking'
 
-export default function RootLayout({
+export default function TrackingProvider() {
+  return (
+    <Tracker
+      // other options
+      action={(event) => {
+        fetch('/api/analytics', {
+          method: 'POST',
+          body: JSON.stringify(event),
+        })
+      }}
+    />
+  )
+}
+```
+
+### Step 2: Add the TrackingProvider to Your Layout Component
+
+> Path: `src/app/layout.tsx`
+
+```tsx
+import TrackingProvider from '../components/tracking-provider'
+
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -112,52 +134,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
-        <Tracker
-          action={(event) => {
-            fetch('/api/analytics', {
-              method: 'POST',
-              body: JSON.stringify(event),
-            })
-          }}
-        />
+        <TrackingProvider />
       </body>
     </html>
   )
 }
 ```
 
-### Make Sure to Set Up an API Route, example given in next Advanced Usage section.
-
-## Advanced Usage
-
-It is recommended to use the `useTracking` hook in a layout component that is rendered on every page. This enables you to track page views and click events across your entire application.
-
-### Step 1: Create a Next.js Client Component
-
-> Path: `src/components/tracker.tsx`
-
-```tsx
-'use client'
-
-import { useTracking } from 'use-tracking'
-
-export default function Page() {
-  useTracking({
-    action: (event) => {
-      fetch('/api/analytics', {
-        method: 'POST',
-        body: JSON.stringify(event),
-      })
-    },
-  })
-
-  return null
-}
-```
-
-### Step 2: Create an API Handler
-
-> Path: `src/app/api/analytics/route.ts`
+### Step 3: Make Sure to Set Up an API Route
 
 ```ts
 export async function POST(request: Request) {
@@ -171,26 +155,48 @@ export async function POST(request: Request) {
 }
 ```
 
-### Step 3: Add the Tracker to Your Layout Component
+## Usage for Specific Pages
 
-> Path: `src/app/RootLayout.tsx`
+If you only want to track events on specific pages, you can use the `useTracking` hook directly in those components.
+
+### Step 1: Create a Next.js Client Hook
+
+> Path: `src/app/dashboard/page.tsx`
 
 ```tsx
-import Tracker from '../components/tracker'
+'use client'
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+import { useTracking } from 'use-tracking'
+
+export default function Page() {
+  useTracking({
+    action: (event) => {
+      fetch('/api/analytics/dashboard/route.ts', {
+        method: 'POST',
+        body: JSON.stringify(event),
+      })
+    },
+  })
+
   return (
-    <html lang="en">
-      <body>
-        {children}
-        <Tracker />
-      </body>
-    </html>
+    <button className="text-xs" data-action="test-button">
+      Click Me!
+    </button>
   )
+}
+```
+
+### Step 2: Make Sure to Set Up an API Route
+
+```ts
+export async function POST(request: Request) {
+  const event = await request.json()
+
+  // Add your logic here, such as updating the database
+
+  console.log(event)
+
+  return Response.json({ success: true })
 }
 ```
 

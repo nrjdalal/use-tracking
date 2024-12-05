@@ -1,5 +1,5 @@
 import './globals.css'
-import { Tracker } from 'use-tracking'
+import TrackerProvider from '../components/tracking-provider'
 
 export default function RootLayout({
   children,
@@ -10,14 +10,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-dvh">
         {children}
-        <Tracker
-          action={async (event) => {
-            await fetch('/api/analytics', {
-              method: 'POST',
-              body: JSON.stringify(event),
-            })
-          }}
-        />
+        <TrackerProvider />
       </body>
     </html>
   )

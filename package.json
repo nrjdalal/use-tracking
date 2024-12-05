@@ -1,7 +1,7 @@
 {
   "name": "use-tracking",
-  "description": "`use-tracking` is a custom React hook designed to enable simple and effective event tracking within your applications. It is especially useful for tracking user interactions like page views and click events, providing an easy way to collect analytics data.",
-  "version": "0.1.0",
+  "description": "Use Tracking is a custom React hook with a configurable Tracker component designed to enable simple and effective analytics and event tracking in all your Next.js applications.",
+  "version": "0.1.3",
   "license": "MIT",
   "author": {
     "name": "Neeraj Dalal",
@@ -18,6 +18,7 @@
   "keywords": [
     "React",
     "Hook",
+    "Component",
     "Tracking",
     "Analytics",
     "Events",
@@ -31,7 +32,8 @@
   "type": "module",
   "exports": "./dist/index.js",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "next": ">=13.0.0",

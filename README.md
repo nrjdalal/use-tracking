@@ -3,9 +3,26 @@
 [![npm version](https://img.shields.io/npm/v/use-tracking)](https://www.npmjs.com/package/use-tracking)
 [![npm downloads](https://img.shields.io/npm/dm/use-tracking)](https://www.npmjs.com/package/use-tracking)
 
-`use-tracking` is a custom React hook designed to enable simple and effective event tracking within your applications. It is especially useful for tracking user interactions like page views and click events, and it provides an easy way to collect analytics data.
+[Use Tracking](https://rdt.li/use-tracking) is a custom React hook with a configurable Tracker component designed to enable simple and effective analytics and event tracking within your Next.js applications.
 
 > If you find this package useful, please consider [starring it on GitHub](https://rdt.li/use-tracking-hook)! Your support motivates further development and improvements.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Usage with Tracker Component](#usage-with-tracker-component)
+  - [Add Tracker in Your Layout Component](#just-add-tracker-in-your-layout-component)
+  - [Make Sure to Set Up an API Route](#make-sure-to-set-up-an-api-route)
+- [Advanced Usage](#advanced-usage)
+  - [Step 1: Create a Next.js Client Component](#step-1-create-a-nextjs-client-component)
+  - [Step 2: Create an API Handler](#step-2-create-an-api-handler)
+  - [Step 3: Add the Tracker to Your Layout Component](#step-3-add-the-tracker-to-your-layout-component)
+- [Configuration Options](#configuration-options)
+- [Contributions](#contributions)
+- [License](#license)
+- [About](#about)
 
 ## Features
 
@@ -73,7 +90,39 @@ Event: {
 }
 ```
 
-## Recommended Usage
+## Usage with Tracker Component
+
+### Add Tracker in Your Layout Component
+
+```tsx
+import { Tracker } from 'use-tracking'
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Tracker
+          action={(event) => {
+            fetch('/api/analytics', {
+              method: 'POST',
+              body: JSON.stringify(event),
+            })
+          }}
+        />
+      </body>
+    </html>
+  )
+}
+```
+
+### Make Sure to Set Up an API Route, example given in next Advanced Usage section.
+
+## Advanced Usage
 
 It is recommended to use the `useTracking` hook in a layout component that is rendered on every page. This enables you to track page views and click events across your entire application.
 

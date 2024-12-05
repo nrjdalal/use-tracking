@@ -14,11 +14,12 @@
     "skipLibCheck": true,
     "strict": true,
     "isolatedModules": false,
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

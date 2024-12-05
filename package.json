@@ -1,7 +1,7 @@
 {
   "name": "use-tracking",
   "description": "`use-tracking` is a custom React hook designed to enable simple and effective event tracking within your applications. It is especially useful for tracking user interactions like page views and click events, providing an easy way to collect analytics data.",
-  "version": "0.0.18-beta",
+  "version": "0.1.0",
   "license": "MIT",
   "author": {
     "name": "Neeraj Dalal",

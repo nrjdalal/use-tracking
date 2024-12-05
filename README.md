@@ -5,7 +5,7 @@
 
 `use-tracking` is a custom React hook designed to enable simple and effective event tracking within your applications. It is especially useful for tracking user interactions like page views and click events, providing an easy way to collect analytics data.
 
-> If you find this package useful, please consider [Starring on GitHub](https://github.com/nrjalal/use-tracking)! Your support motivates further development and improvements.
+> If you find this package useful, please consider [Starring on GitHub](https://rdt.li/use-tracking-hook)! Your support motivates further development and improvements.
 
 ## Features
 
@@ -16,8 +16,7 @@
 
 ## Installation
 
-```
-bash
+```bash
 bun add use-tracking
 ```
 
@@ -31,7 +30,7 @@ npm install use-tracking
 
 Below is a basic example of how to use the `useTracking` hook in a React component:
 
-```typescript
+```tsx
 'use client'
 
 import { useTracking } from 'use-tracking'
@@ -49,7 +48,7 @@ export default function Page() {
 
 Output:
 
-```javascript
+```js
 // event pageview on initial render
 Event: {
   url: '/example',
@@ -78,19 +77,19 @@ It is recommended to use the `useTracking` hook in a layout component that is re
 
 ### First create a Next.js client component
 
-> Path: src/components/Tracker.tsx
+> Path: src/components/tracker.tsx
 
-```typescript
+```tsx
 'use client'
 
 import { useTracking } from 'use-tracking'
 
-export default function Page {
+export default function Page() {
   useTracking({
-    action: (eventData) => {
-      fetch('/analytics', {
+    action: (event) => {
+      fetch('/api/analytics', {
         method: 'POST',
-        body: JSON.stringify(eventData),
+        body: JSON.stringify(event),
       })
     },
   })
@@ -99,22 +98,38 @@ export default function Page {
 }
 ```
 
-### Then add it to your layout component
+### Create an API handler
+
+> Path src/app/api/analytics/route.ts
+
+```ts
+export async function POST(request: Request) {
+  const event = await request.json()
+
+  // add your logic here, like to update db, etc
+
+  console.log(event)
+
+  return Response.json({ success: true })
+}
+```
+
+### Then add it to your layout component to track all event
 
 > Path: src/app/RootLayout.tsx
 
-```typescript
-import Tracker from '../components/Tracker'
+```tsx
+import Tracker from '../components/tracker'
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
+        {children}
         <Tracker />
       </body>
     </html>

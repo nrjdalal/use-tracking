@@ -1,10 +1,11 @@
-# use-tracking
+# Use Tracking
 
-## Overview
+[![npm version](https://img.shields.io/npm/v/use-tracking)](https://www.npmjs.com/package/use-tracking)
+[![npm downloads](https://img.shields.io/npm/dm/use-tracking)](https://www.npmjs.com/package/use-tracking)
 
 `use-tracking` is a custom React hook designed to enable simple and effective event tracking within your applications. It is especially useful for tracking user interactions like page views and click events, providing an easy way to collect analytics data.
 
-- Currently Next.js is supported.
+> If you find this package useful, please consider [Starring on GitHub](https://github.com/nrjalal/use-tracking)! Your support motivates further development and improvements.
 
 ## Features
 

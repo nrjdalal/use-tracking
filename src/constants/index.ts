@@ -1,11 +1,11 @@
 export const IGNORE_PATTERNS = [
+  // aria
+  'aria-',
   // class and associated
   'class',
   'height',
   'width',
   'style',
-  // aria
-  'aria-',
   // shadcn
   'data-state',
   'data-sidebar',

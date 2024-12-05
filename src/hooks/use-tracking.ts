@@ -31,10 +31,10 @@ export function useTracking({
 
   const trackPageView = useCallback(() => {
     action?.({
+      sessionId: sessionId.current,
       url,
       event: 'pageview',
       timestamp: new Date().toISOString(),
-      sessionId: sessionId.current,
     })
   }, [action, url])
 
@@ -55,11 +55,11 @@ export function useTracking({
       })
 
       const eventData: Record<string, string> = {
+        sessionId: sessionId.current,
         url,
         event: `${meaningfulTag.name}click`,
         timestamp: new Date().toISOString(),
         attributes: JSON.stringify(attributes),
-        sessionId: sessionId.current,
       }
 
       return action?.(eventData)

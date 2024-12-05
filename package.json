@@ -1,7 +1,7 @@
 {
   "name": "use-tracking",
   "description": "Use Tracking is a custom React hook with a configurable Tracker component designed to enable simple and effective analytics and event tracking in all your Next.js applications.",
-  "version": "0.1.3",
+  "version": "0.1.6",
   "license": "MIT",
   "author": {
     "name": "Neeraj Dalal",
@@ -36,15 +36,12 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "next": ">=13.0.0",
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "next": "^14.0.0-0 || ^15.0.0-0",
+    "react": "^18.0.0-0 || ^19.0.0-0",
+    "react-dom": "^18.0.0-0 || ^19.0.0-0"
   },
   "devDependencies": {
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
-  },
-  "dependencies": {
-    "@types/node": "^22.10.1"
   }
 }

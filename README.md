@@ -92,6 +92,12 @@ Event: {
 
 ## Usage with Tracker Component
 
+> Currently experimental, if doesn't work as expected, please use the advanced usage.
+
+```bash
+bun add use-tracking@experimental
+```
+
 ### Add Tracker in Your Layout Component
 
 ```tsx

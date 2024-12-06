@@ -29,7 +29,7 @@
     "Click Events",
     "Pageview Tracking"
   ],
-  "exports": "./dist/index.js",
+  "exports": "./dist/index.mjs",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

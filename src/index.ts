@@ -1,2 +1,2 @@
-export { default as Tracker } from '@/src/components/tracker'
+export { TrackingClientProvider } from '@/src/components/provider'
 export { type UseTrackingOptions, useTracking } from '@/src/hooks/use-tracking'

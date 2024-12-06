@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/use-tracking)](https://www.npmjs.com/package/use-tracking)
 [![npm downloads](https://img.shields.io/npm/dm/use-tracking)](https://www.npmjs.com/package/use-tracking)
 
-[Use Tracking](https://rdt.li/use-tracking) is a custom React hook with a configurable Tracker component designed to enable simple and effective analytics and event tracking within your Next.js applications.
+[Use Tracking](https://rdt.li/use-tracking) is a custom React hook with a configurable Tracking component designed to enable simple and effective analytics and event tracking within your Next.js applications.
 
 > If you find this package useful, please consider [starring it on GitHub](https://rdt.li/use-tracking-hook)! Your support motivates further development and improvements.
 
@@ -12,7 +12,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Recommended: Usage with Tracker Component](#recommended-usage-with-tracker-component)
+- [Recommended: Usage with Tracking Component](#recommended-usage-with-Tracking-component)
   - [Step 1: Create a Next.js Provider Component](#step-1-create-a-nextjs-provider-component)
   - [Step 2: Add the TrackingProvider to Your Layout Component](#step-2-add-the-trackingprovider-to-your-layout-component)
   - [Step 3: Make Sure to Set Up an API Route](#step-3-make-sure-to-set-up-an-api-route)
@@ -90,9 +90,9 @@ Event: {
 }
 ```
 
-## Recommended: Usage with Tracker Component
+## Recommended: Usage with Tracking Component
 
-It is recommended to use the `TrackerProvider` in a layout component that is rendered on every page. This enables you to track page views and click events across your entire application.
+It is recommended to use the `TrackingProvider` in a layout component that is rendered on every page. This enables you to track page views and click events across your entire application.
 
 ### Step 1: Create a Next.js Provider Component
 
@@ -101,19 +101,28 @@ It is recommended to use the `TrackerProvider` in a layout component that is ren
 ```tsx
 'use client'
 
-import { Tracker } from 'use-tracking'
+import { TrackingClientProvider } from 'use-tracking'
 
-export default function TrackingProvider() {
+export default function TrackingProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <Tracker
-      // other options
-      action={(event) => {
-        fetch('/api/analytics', {
-          method: 'POST',
-          body: JSON.stringify(event),
-        })
+    <TrackingClientProvider
+      config={{
+        action: (event) =>
+          fetch('/api/analytics', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(event),
+          }),
       }}
-    />
+    >
+      {children}
+    </TrackingClientProvider>
   )
 }
 ```
@@ -133,8 +142,7 @@ export default function Layout({
   return (
     <html lang="en">
       <body>
-        {children}
-        <TrackingProvider />
+        <TrackingProvider>{children}</TrackingProvider>
       </body>
     </html>
   )
@@ -142,6 +150,8 @@ export default function Layout({
 ```
 
 ### Step 3: Make Sure to Set Up an API Route
+
+> Path: `src/app/api/analytics/route.ts`
 
 ```ts
 export async function POST(request: Request) {
@@ -171,7 +181,7 @@ import { useTracking } from 'use-tracking'
 export default function Page() {
   useTracking({
     action: (event) => {
-      fetch('/api/analytics/dashboard/route.ts', {
+      fetch('/api/analytics/dashboard', {
         method: 'POST',
         body: JSON.stringify(event),
       })
@@ -187,6 +197,8 @@ export default function Page() {
 ```
 
 ### Step 2: Make Sure to Set Up an API Route
+
+> Path: `src/app/api/analytics/dashboard/route.ts`
 
 ```ts
 export async function POST(request: Request) {

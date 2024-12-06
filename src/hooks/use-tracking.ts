@@ -1,7 +1,7 @@
-import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useRef } from 'react'
 import { IGNORE_PATTERNS, MEANINGFUL_TAGS } from '@/src/constants'
 import { getDataAttributes, getMeaningfulTag } from '@/src/utils'
+import { usePathname } from 'next/navigation'
+import { useCallback, useEffect, useRef } from 'react'
 
 export interface UseTrackingOptions {
   prefix?: string
@@ -26,7 +26,7 @@ export function useTracking({
   const sessionId = useRef(
     Array.from(crypto.getRandomValues(new Uint8Array(16)))
       .map((n) => n.toString(16))
-      .join('')
+      .join(''),
   )
 
   const trackPageView = useCallback(() => {
@@ -64,7 +64,7 @@ export function useTracking({
 
       return action?.(eventData)
     },
-    [action, url, ignore, prefix]
+    [action, url, ignore, prefix],
   )
 
   useEffect(() => {

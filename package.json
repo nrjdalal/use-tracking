@@ -1,7 +1,7 @@
 {
   "name": "use-tracking",
   "description": "Use Tracking is a custom React hook with a configurable Tracking component designed to enable simple and effective analytics and event tracking in all your Next.js applications.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "author": {
     "name": "Neeraj Dalal",
@@ -29,7 +29,6 @@
     "Click Events",
     "Pageview Tracking"
   ],
-  "type": "module",
   "exports": "./dist/index.js",
   "scripts": {
     "build": "tsup",
@@ -42,6 +41,8 @@
     "react-dom": "^18.0.0-0 || ^19.0.0-0"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "prettier": "^3.4.2",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   }
